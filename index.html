@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enzo Curci - CS Student & Developer</title>
+
+  <!-- OG meta tags -->
+  <meta property="og:title" content="Enzo Curci - CS Student & Developer" />
+  <meta property="og:description" content="CS student at the University of Luxembourg, on exchange at HKUST. Freelance web developer based in Luxembourg." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://enzocurci.com" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Enzo Curci - CS Student & Developer" />
+  <meta name="twitter:description" content="CS student at the University of Luxembourg, on exchange at HKUST. Freelance web developer based in Luxembourg." />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --border: #222;
+      --accent: #6ee7b7;
+      --accent2: #818cf8;
+      --text: #e5e5e5;
+      --muted: #888;
+      --nav-bg: rgba(13,13,13,.85);
+      --mountain-back: rgba(255,255,255,.03);
+      --mountain-front: rgba(255,255,255,.06);
+      --font: 'Inter', system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f9f9f7;
+        --surface: #f0f0ee;
+        --border: #ddd;
+        --accent: #059669;
+        --accent2: #4f46e5;
+        --text: #111;
+        --muted: #666;
+        --nav-bg: rgba(249,249,247,.85);
+        --mountain-back: rgba(0,0,0,.04);
+        --mountain-front: rgba(0,0,0,.07);
+      }
+    }
+
+    [data-theme="dark"] {
+      --bg: #0d0d0d;
+      --surface: #141414;
+      --border: #222;
+      --accent: #6ee7b7;
+      --accent2: #818cf8;
+      --text: #e5e5e5;
+      --muted: #888;
+      --nav-bg: rgba(13,13,13,.85);
+      --mountain-back: rgba(255,255,255,.03);
+      --mountain-front: rgba(255,255,255,.06);
+    }
+
+    [data-theme="light"] {
+      --bg: #f9f9f7;
+      --surface: #f0f0ee;
+      --border: #ddd;
+      --accent: #059669;
+      --accent2: #4f46e5;
+      --text: #111;
+      --muted: #666;
+      --nav-bg: rgba(249,249,247,.85);
+      --mountain-back: rgba(0,0,0,.04);
+      --mountain-front: rgba(0,0,0,.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.7;
+      transition: background .2s, color .2s;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
+    a:hover { opacity: .75; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2.5rem;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); letter-spacing: -.02em; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--muted); font-size: .9rem; }
+    .nav-links a:hover { color: var(--text); opacity: 1; }
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      padding: .35rem .6rem;
+      border-radius: 6px;
+      font-size: .9rem;
+      line-height: 1;
+      transition: border-color .2s, color .2s;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--text); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 0;
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      margin-bottom: 1.5rem;
+    }
+    h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .7rem 1.4rem;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--accent); color: #0d0d0d; }
+    .btn-primary:hover { opacity: .85; }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
+
+    /* MOUNTAIN */
+    .hero-landscape {
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      margin-top: 4rem;
+      line-height: 0;
+    }
+    .hero-landscape svg { width: 100%; display: block; }
+    .mountain-back { fill: var(--mountain-back); }
+    .mountain-front { fill: var(--mountain-front); }
+
+    /* SECTIONS */
+    section { padding: 6rem 2.5rem; max-width: 860px; margin: 0 auto; }
+
+    .section-label {
+      font-size: .75rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .75rem;
+    }
+    h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -.03em;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; }
+    .lang-list { display: flex; flex-direction: column; gap: .6rem; }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; }
+    .lang-name { font-size: .9rem; }
+    .lang-level {
+      font-size: .75rem;
+      padding: .2rem .6rem;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .lang-level.native { border-color: var(--accent); color: var(--accent); }
+
+    /* EXPERIENCE */
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.5rem;
+      padding: 1.8rem 0;
+      border-top: 1px solid var(--border);
+    }
+    .timeline-item:last-child { border-bottom: 1px solid var(--border); }
+    .timeline-date { font-size: .8rem; color: var(--muted); padding-top: .25rem; }
+    .timeline-title { font-weight: 600; margin-bottom: .25rem; }
+    .timeline-org { font-size: .85rem; color: var(--accent2); margin-bottom: .5rem; }
+    .timeline-desc { font-size: .9rem; color: var(--muted); }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .project-card {
+      padding: 1.4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      transition: border-color .2s, transform .2s;
+      display: flex;
+      flex-direction: column;
+      gap: .5rem;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .project-title { font-weight: 600; font-size: .95rem; color: var(--text); }
+    .project-desc { font-size: .85rem; color: var(--muted); flex: 1; }
+    .project-tag {
+      display: inline-block;
+      font-size: .7rem;
+      padding: .15rem .5rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .project-link { font-size: .8rem; color: var(--accent); margin-top: .25rem; }
+
+    /* SKILLS */
+    .skills-group { margin-bottom: 1.5rem; }
+    .skills-group-label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .6rem; }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .skill-pill {
+      padding: .5rem .9rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: .85rem;
+      color: var(--text);
+      transition: border-color .2s;
+    }
+    .skill-pill:hover { border-color: var(--accent); }
+    .skill-pill.current { border-color: var(--accent2); color: var(--accent2); }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+    .contact-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      transition: border-color .2s, transform .2s;
+    }
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); opacity: 1; }
+    .contact-icon { font-size: 1.4rem; }
+    .contact-label { font-size: .75rem; color: var(--muted); }
+    .contact-name { font-size: .9rem; font-weight: 500; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2.5rem;
+      color: var(--muted);
+      font-size: .85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .divider { height: 1px; background: var(--border); max-width: 860px; margin: 0 auto; }
+
+    @media (max-width: 640px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { gap: 1.25rem; }
+      section { padding: 4rem 1.25rem; }
+      #hero { padding: 7rem 1.25rem 0; }
+      .about-grid { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; gap: .4rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">EC</span>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <span class="hero-tag">Computer Science Student</span>
+    <h1>Hi, I'm <span>Enzo Curci</span></h1>
+    <p class="hero-sub">
+      CS student at the University of Luxembourg, currently on exchange at HKUST in Hong Kong.
+    </p>
+    <div class="hero-links">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="https://github.com/C3CL3N3" target="_blank" class="btn btn-ghost">GitHub →</a>
+      <a href="/cv.pdf" download class="btn btn-ghost">Download CV</a>
+    </div>
+
+    <div class="hero-landscape">
+      <svg viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon class="mountain-back" points="0,200 80,130 180,155 300,90 420,140 540,70 660,120 780,55 900,105 1020,65 1140,100 1260,75 1440,110 1440,200"/>
+        <polygon class="mountain-front" points="0,200 100,160 220,175 340,125 460,165 580,105 700,150 820,95 940,135 1060,110 1180,140 1320,115 1440,145 1440,200"/>
+      </svg>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">About</p>
+    <h2>Who I am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a 21-year-old from Kleinbettingen, Luxembourg. I'm studying Computer Science at the University of Luxembourg, currently on exchange at HKUST in Hong Kong.
+        </p>
+        <p>
+          In 2023 I co-built a web app for a restaurant - managing employees, stock and consumption - as a freelance project.
+        </p>
+        <p>
+          Outside of code I hike, cycle, and travel.
+        </p>
+      </div>
+      <div>
+        <p style="font-size:.85rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .1em;">Languages</p>
+        <div class="lang-list">
+          <div class="lang-item"><span class="lang-name">French</span><span class="lang-level native">Native</span></div>
+          <div class="lang-item"><span class="lang-name">Luxembourgish</span><span class="lang-level native">Fluent</span></div>
+          <div class="lang-item"><span class="lang-name">German</span><span class="lang-level native">Fluent</span></div>
+          <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Advanced</span></div>
+          <div class="lang-item"><span class="lang-name">Italian</span><span class="lang-level">Beginner</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label">Experience & Education</p>
+    <h2>What I've done</h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <span class="timeline-date">2024 - Present</span>
+        <div>
+          <div class="timeline-title">Bachelor in Computer Science</div>
+          <div class="timeline-org">University of Luxembourg</div>
+          <div class="timeline-desc">Algorithms, systems, programming languages.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">Feb - May 2026</span>
+        <div>
+          <div class="timeline-title">Exchange Semester</div>
+          <div class="timeline-org">HKUST - Hong Kong</div>
+          <div class="timeline-desc">Exchange semester in Hong Kong. Courses in mobile development, cybersecurity, IoT, and compiler construction.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2023</span>
+        <div>
+          <div class="timeline-title">Freelance Web Developer</div>
+          <div class="timeline-org">Restaurant management app</div>
+          <div class="timeline-desc">Co-built a web app for a restaurant - employees, stock, and consumption tracking.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">Summer 2023</span>
+        <div>
+          <div class="timeline-title">Student Job</div>
+          <div class="timeline-org">Centre Sportif de Steinfort</div>
+          <div class="timeline-desc">Front desk and facility management.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">Summer 2022</span>
+        <div>
+          <div class="timeline-title">Technical Support</div>
+          <div class="timeline-org">Chambre des Députés, Luxembourg</div>
+          <div class="timeline-desc">IT support and staff assistance.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">Summer 2021</span>
+        <div>
+          <div class="timeline-title">Student Job</div>
+          <div class="timeline-org">Commune de Steinfort</div>
+          <div class="timeline-desc">Grounds maintenance and landscaping.</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <span class="timeline-date">2017 - 2024</span>
+        <div>
+          <div class="timeline-title">Secondary School - Section Classique B</div>
+          <div class="timeline-org">Lycée Josy Barthel, Mamer</div>
+          <div class="timeline-desc">Graduated with mention Excellent.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label">Projects</p>
+    <h2>What I've built</h2>
+    <div class="projects-grid">
+
+      <a href="https://github.com/C3CL3N3/MusicOverlay" target="_blank" class="project-card">
+        <div class="project-title">MusicOverlay</div>
+        <div class="project-desc">A desktop overlay for displaying currently playing music.</div>
+        <div>
+          <span class="project-tag">Personal</span>
+        </div>
+        <div class="project-link">github.com/C3CL3N3/MusicOverlay →</div>
+      </a>
+
+      <a href="https://github.com/erikonis/startup_social_media_platform" target="_blank" class="project-card">
+        <div class="project-title">Startup Social Media Platform</div>
+        <div class="project-desc">Social media platform for startups. Open source, contributed as part of a team.</div>
+        <div>
+          <span class="project-tag">Contributor</span>
+        </div>
+        <div class="project-link">github.com/erikonis/startup_social_media_platform →</div>
+      </a>
+
+      <a href="https://github.com/C3CL3N3" target="_blank" class="project-card">
+        <div class="project-title">Restaurant Management App</div>
+        <div class="project-desc">Web app for employee, stock, and consumption management. Built as a freelance project in 2023.</div>
+        <div>
+          <span class="project-tag">Freelance</span>
+        </div>
+        <div class="project-link">See GitHub →</div>
+      </a>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">Skills</p>
+    <h2>What I work with</h2>
+
+    <div class="skills-group">
+      <div class="skills-group-label">Languages</div>
+      <div class="skills-grid">
+        <div class="skill-pill">Python</div>
+        <div class="skill-pill">Java</div>
+        <div class="skill-pill">Haskell</div>
+        <div class="skill-pill">JavaScript</div>
+        <div class="skill-pill">HTML / CSS</div>
+        <div class="skill-pill">SQL</div>
+      </div>
+    </div>
+
+    <div class="skills-group">
+      <div class="skills-group-label">Tools</div>
+      <div class="skills-grid">
+        <div class="skill-pill">Git</div>
+        <div class="skill-pill">Office Suite</div>
+      </div>
+    </div>
+
+    <div class="skills-group">
+      <div class="skills-group-label">Currently studying</div>
+      <div class="skills-grid">
+        <div class="skill-pill current">Mobile Dev</div>
+        <div class="skill-pill current">Cybersecurity</div>
+        <div class="skill-pill current">IoT</div>
+        <div class="skill-pill current">Compiler Construction</div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">Contact</p>
+    <h2>Let's connect</h2>
+    <div class="contact-grid">
+
+      <a href="https://github.com/C3CL3N3" target="_blank" class="contact-card">
+        <span class="contact-icon">🐙</span>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-name">C3CL3N3</div>
+        </div>
+      </a>
+
+      <a href="https://www.linkedin.com/in/enzo-curci-bb09313ab" target="_blank" class="contact-card">
+        <span class="contact-icon">💼</span>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-name">Enzo Curci</div>
+        </div>
+      </a>
+
+      <a href="https://www.instagram.com/enzo0.5" target="_blank" class="contact-card">
+        <span class="contact-icon">📸</span>
+        <div>
+          <div class="contact-label">Instagram</div>
+          <div class="contact-name">@enzo0.5</div>
+        </div>
+      </a>
+
+      <a href="mailto:enzocurci2005@gmail.com" class="contact-card">
+        <span class="contact-icon">✉️</span>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-name">enzocurci2005@gmail.com</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Enzo Curci · Luxembourg</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    const saved = localStorage.getItem('theme');
+    const current = saved || preferred;
+
+    document.documentElement.setAttribute('data-theme', current);
+    toggle.textContent = current === 'dark' ? '☀️' : '🌙';
+
+    toggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+  </script>
+
+</body>
+</html>
