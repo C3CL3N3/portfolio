@@ -346,6 +346,76 @@
       to { opacity: 1; }
     }
 
+    /* TIMELINE LOGOS & EDUCATION EXPAND */
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+    .timeline-logo {
+      width: 30px; height: 30px; border-radius: 7px;
+      object-fit: contain; background: var(--surface);
+      border: 1px solid var(--border); padding: 4px; flex-shrink: 0;
+    }
+    .timeline-item.education { cursor: pointer; }
+    .timeline-item.education:hover .timeline-title { color: var(--accent); transition: color .2s; }
+    .timeline-chevron { font-size: .6rem; color: var(--muted); margin-top: .35rem; flex-shrink: 0; transition: transform .3s; line-height: 1; }
+    .timeline-item.education.open .timeline-chevron { transform: rotate(180deg); }
+    .timeline-extra { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .timeline-item.education.open .timeline-extra { max-height: 200px; }
+    .timeline-gpa {
+      margin-top: .75rem; padding-top: .75rem; border-top: 1px solid var(--border);
+      font-size: .85rem; color: var(--muted); display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .gpa-label { display: flex; flex-direction: column; gap: .15rem; }
+    .gpa-value { color: var(--accent); font-weight: 600; font-size: .9rem; }
+
+    /* CERTIFICATIONS / AWARDS */
+    .certs-grid { display: grid; gap: 1rem; }
+    .cert-card {
+      display: flex; align-items: flex-start; gap: 1.2rem;
+      padding: 1.4rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px; transition: border-color .2s;
+    }
+    .cert-card:hover { border-color: var(--accent); }
+    .cert-badge { font-size: 1.8rem; flex-shrink: 0; line-height: 1; padding-top: .1rem; }
+    .cert-title { font-weight: 600; font-size: .95rem; margin-bottom: .2rem; }
+    .cert-issuer { font-size: .8rem; color: var(--accent2); margin-bottom: .4rem; }
+    .cert-desc { font-size: .85rem; color: var(--muted); }
+
+    /* PROJECT MODAL */
+    div.project-card { cursor: pointer; }
+    div.project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.6); backdrop-filter: blur(5px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity .25s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem 2rem 1.75rem;
+      max-width: 520px; width: 100%; position: relative;
+      transform: translateY(20px); transition: transform .25s;
+    }
+    .modal-overlay.open .modal { transform: none; }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      background: none; border: 1px solid var(--border); color: var(--muted);
+      cursor: pointer; width: 30px; height: 30px; border-radius: 7px; font-size: .8rem;
+      display: flex; align-items: center; justify-content: center; transition: border-color .2s, color .2s;
+    }
+    .modal-close:hover { border-color: var(--accent); color: var(--text); }
+    .modal-tag {
+      display: inline-block; font-size: .7rem; padding: .15rem .55rem;
+      border-radius: 999px; border: 1px solid var(--border); color: var(--muted); margin-bottom: .9rem;
+    }
+    .modal-title { font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; }
+    .modal-desc { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
+    .modal-pills { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.2rem; }
+    .modal-pill {
+      padding: .28rem .65rem; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 6px; font-size: .78rem; color: var(--muted);
+    }
+    .modal-link { display: inline-flex; align-items: center; gap: .35rem; font-size: .85rem; color: var(--accent); }
+
     @media (max-width: 640px) {
       nav { padding: 1rem 1.25rem; }
       .nav-links { gap: 1.25rem; }
@@ -365,6 +435,7 @@
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
+      <a href="#certifications">Awards</a>
       <a href="#contact">Contact</a>
       <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
     </div>
@@ -434,21 +505,43 @@
     <h2 class="reveal">What I've done</h2>
     <div class="timeline">
 
-      <div class="timeline-item reveal-left">
+      <div class="timeline-item education reveal-left">
         <span class="timeline-date">2024 - Present</span>
         <div>
-          <div class="timeline-title">Bachelor in Computer Science</div>
-          <div class="timeline-org">University of Luxembourg</div>
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Bachelor in Computer Science</div>
+              <div class="timeline-org">University of Luxembourg</div>
+            </div>
+            <img src="https://www.google.com/s2/favicons?domain=uni.lu&sz=64" class="timeline-logo" alt="UL" loading="lazy">
+            <span class="timeline-chevron">▼</span>
+          </div>
           <div class="timeline-desc">Algorithms, systems, programming languages.</div>
+          <div class="timeline-extra">
+            <div class="timeline-gpa">
+              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">GPA</span><span class="gpa-value">— / 20</span></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item reveal-left">
+      <div class="timeline-item education reveal-left">
         <span class="timeline-date">Feb - May 2026</span>
         <div>
-          <div class="timeline-title">Exchange Semester</div>
-          <div class="timeline-org">HKUST - Hong Kong</div>
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Exchange Semester</div>
+              <div class="timeline-org">HKUST - Hong Kong</div>
+            </div>
+            <img src="https://www.google.com/s2/favicons?domain=hkust.edu.hk&sz=64" class="timeline-logo" alt="HKUST" loading="lazy">
+            <span class="timeline-chevron">▼</span>
+          </div>
           <div class="timeline-desc">Exchange semester in Hong Kong. Courses in mobile development, cybersecurity, IoT, and compiler construction.</div>
+          <div class="timeline-extra">
+            <div class="timeline-gpa">
+              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">GPA</span><span class="gpa-value">— / 4.3</span></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -488,12 +581,44 @@
         </div>
       </div>
 
-      <div class="timeline-item reveal-left">
+      <div class="timeline-item education reveal-left">
         <span class="timeline-date">2017 - 2024</span>
         <div>
-          <div class="timeline-title">Secondary School - Section Classique B</div>
-          <div class="timeline-org">Lycée Josy Barthel, Mamer</div>
+          <div class="timeline-header">
+            <div>
+              <div class="timeline-title">Secondary School – Section Classique B</div>
+              <div class="timeline-org">Lycée Josy Barthel, Mamer</div>
+            </div>
+            <img src="https://www.google.com/s2/favicons?domain=ljbm.lu&sz=64" class="timeline-logo" alt="LJB" loading="lazy">
+            <span class="timeline-chevron">▼</span>
+          </div>
           <div class="timeline-desc">Graduated with mention Excellent.</div>
+          <div class="timeline-extra">
+            <div class="timeline-gpa">
+              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Final grade</span><span class="gpa-value">— / 60</span></div>
+              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Mention</span><span class="gpa-value">Excellent</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CERTIFICATIONS / AWARDS -->
+  <section id="certifications">
+    <p class="section-label reveal">Certifications & Awards</p>
+    <h2 class="reveal">What I've earned</h2>
+    <div class="certs-grid">
+
+      <div class="cert-card reveal">
+        <div class="cert-badge">🌏</div>
+        <div>
+          <div class="cert-title">Global Exchange Programme</div>
+          <div class="cert-issuer">University of Luxembourg · 2025–2026</div>
+          <div class="cert-desc">Selected for the international exchange programme at HKUST, Hong Kong. One of a limited number of competitive spots awarded annually to high-achieving students across the faculty.</div>
         </div>
       </div>
 
@@ -508,24 +633,41 @@
     <h2 class="reveal">What I've built</h2>
     <div class="projects-grid">
 
-      <a href="https://github.com/C3CL3N3/MusicOverlay" target="_blank" class="project-card reveal">
+      <div class="project-card reveal"
+           data-title="MusicOverlay"
+           data-tag="Personal"
+           data-desc="A desktop overlay that displays the currently playing track from Spotify or other media players. Shows song title, artist, and album art in a floating, always-on-top window. Built as a personal side project to scratch an itch — no existing tool did exactly what I wanted."
+           data-tech="Python"
+           data-link="https://github.com/C3CL3N3/MusicOverlay"
+           data-link-text="github.com/C3CL3N3/MusicOverlay">
         <div class="project-title">MusicOverlay</div>
         <div class="project-desc">A desktop overlay for displaying currently playing music.</div>
         <div><span class="project-tag">Personal</span></div>
-        <div class="project-link">github.com/C3CL3N3/MusicOverlay →</div>
-      </a>
+        <div class="project-link">View details →</div>
+      </div>
 
-      <a href="https://github.com/erikonis/startup_social_media_platform" target="_blank" class="project-card reveal">
+      <div class="project-card reveal"
+           data-title="Startup Social Media Platform"
+           data-tag="Contributor"
+           data-desc="An open-source social media platform designed for startups and entrepreneurs to connect, share updates, and find collaborators. Contributed features and bug fixes as part of a distributed team."
+           data-tech="Open Source"
+           data-link="https://github.com/erikonis/startup_social_media_platform"
+           data-link-text="github.com/erikonis/startup_social_media_platform">
         <div class="project-title">Startup Social Media Platform</div>
         <div class="project-desc">Social media platform for startups. Open source, contributed as part of a team.</div>
         <div><span class="project-tag">Contributor</span></div>
-        <div class="project-link">github.com/erikonis/startup_social_media_platform →</div>
-      </a>
+        <div class="project-link">View details →</div>
+      </div>
 
-      <div class="project-card reveal">
+      <div class="project-card reveal"
+           data-title="Restaurant Management App"
+           data-tag="Freelance"
+           data-desc="A full web application built for a restaurant in 2023. Handles employee scheduling, stock tracking, and consumption analytics. Co-built as a freelance project — private codebase. The app replaced a manual paper-based process and is actively used by the restaurant today."
+           data-tech="HTML / CSS,JavaScript,SQL">
         <div class="project-title">Restaurant Management App</div>
         <div class="project-desc">Web app for employee, stock, and consumption management. Built as a freelance project in 2023.</div>
         <div><span class="project-tag">Freelance</span></div>
+        <div class="project-link">View details →</div>
       </div>
 
     </div>
@@ -613,6 +755,18 @@
     </div>
   </section>
 
+  <!-- PROJECT MODAL -->
+  <div id="modalOverlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div id="modalTag" class="modal-tag"></div>
+      <div id="modalTitle" class="modal-title"></div>
+      <div id="modalDesc" class="modal-desc"></div>
+      <div id="modalPills" class="modal-pills"></div>
+      <a id="modalLink" class="modal-link" target="_blank" rel="noopener" style="display:none">View on GitHub →</a>
+    </div>
+  </div>
+
   <footer>
     <p>Enzo Curci · Luxembourg</p>
   </footer>
@@ -642,17 +796,69 @@
       });
     }, { threshold: 0.12 });
 
-    // Stagger siblings of the same parent
     document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
       observer.observe(el);
     });
 
     // Apply stagger delay to grouped elements
-    ['.lang-item', '.timeline-item', '.project-card', '.contact-card'].forEach(sel => {
+    ['.lang-item', '.timeline-item', '.project-card', '.contact-card', '.cert-card'].forEach(sel => {
       document.querySelectorAll(sel).forEach((el, i) => {
         el.style.setProperty('--delay', `${i * 0.08}s`);
       });
     });
+
+    // Education expand (GPA on click)
+    document.querySelectorAll('.timeline-item.education').forEach(item => {
+      item.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+    });
+
+    // Project modal
+    const overlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(card) {
+      document.getElementById('modalTag').textContent = card.dataset.tag || '';
+      document.getElementById('modalTitle').textContent = card.dataset.title || '';
+      document.getElementById('modalDesc').textContent = card.dataset.desc || '';
+
+      const pills = document.getElementById('modalPills');
+      pills.innerHTML = '';
+      if (card.dataset.tech) {
+        card.dataset.tech.split(',').forEach(t => {
+          const span = document.createElement('span');
+          span.className = 'modal-pill';
+          span.textContent = t.trim();
+          pills.appendChild(span);
+        });
+      }
+
+      const link = document.getElementById('modalLink');
+      if (card.dataset.link) {
+        link.href = card.dataset.link;
+        link.textContent = (card.dataset.linkText || card.dataset.link) + ' →';
+        link.style.display = 'inline-flex';
+      } else {
+        link.style.display = 'none';
+      }
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('div.project-card').forEach(card => {
+      card.addEventListener('click', () => openModal(card));
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
   </script>
 
 </body>
