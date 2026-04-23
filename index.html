@@ -107,17 +107,29 @@
     .nav-links a { color: var(--muted); font-size: .9rem; transition: color .2s; }
     .nav-links a:hover { color: var(--text); opacity: 1; }
     .theme-toggle {
-      background: none;
-      border: 1px solid var(--border);
-      color: var(--muted);
+      position: relative;
+      width: 42px; height: 24px;
+      background: #3a3a3a;
+      border: none;
+      border-radius: 999px;
       cursor: pointer;
-      padding: .35rem .6rem;
-      border-radius: 6px;
-      font-size: .9rem;
-      line-height: 1;
-      transition: border-color .2s, color .2s;
+      padding: 0;
+      flex-shrink: 0;
+      transition: background .25s;
     }
-    .theme-toggle:hover { border-color: var(--accent); color: var(--text); }
+    .theme-toggle .knob {
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      background: #c8c8c8;
+      border-radius: 50%;
+      transition: transform .25s, background .25s;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; line-height: 1;
+      color: #3a3a3a;
+    }
+    [data-theme="light"] .theme-toggle { background: #d0d0d0; }
+    [data-theme="light"] .theme-toggle .knob { transform: translateX(18px); background: #4a4a4a; color: #d0d0d0; }
 
     /* HERO */
     #hero {
@@ -437,7 +449,7 @@
       <a href="#projects">Projects</a>
       <a href="#certifications">Awards</a>
       <a href="#contact">Contact</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">☀️</button>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><span class="knob">☽</span></button>
     </div>
   </nav>
 
@@ -519,7 +531,7 @@
           <div class="timeline-desc">Algorithms, systems, programming languages.</div>
           <div class="timeline-extra">
             <div class="timeline-gpa">
-              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">GPA</span><span class="gpa-value">— / 20</span></div>
+              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">GPA</span><span class="gpa-value">17.6 / 20</span></div>
             </div>
           </div>
         </div>
@@ -595,7 +607,7 @@
           <div class="timeline-desc">Graduated with mention Excellent.</div>
           <div class="timeline-extra">
             <div class="timeline-gpa">
-              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Final grade</span><span class="gpa-value">— / 60</span></div>
+              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Final grade</span><span class="gpa-value">53 / 60</span></div>
               <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Mention</span><span class="gpa-value">Excellent</span></div>
             </div>
           </div>
@@ -634,26 +646,26 @@
     <div class="projects-grid">
 
       <div class="project-card reveal"
-           data-title="MusicOverlay"
+           data-title="Orpheus"
            data-tag="Personal"
            data-desc="A desktop overlay that displays the currently playing track from Spotify or other media players. Shows song title, artist, and album art in a floating, always-on-top window. Built as a personal side project to scratch an itch — no existing tool did exactly what I wanted."
            data-tech="Python"
-           data-link="https://github.com/C3CL3N3/MusicOverlay"
-           data-link-text="github.com/C3CL3N3/MusicOverlay">
-        <div class="project-title">MusicOverlay</div>
+           data-link="https://github.com/C3CL3N3/Orpheus"
+           data-link-text="github.com/C3CL3N3/Orpheus">
+        <div class="project-title">Orpheus</div>
         <div class="project-desc">A desktop overlay for displaying currently playing music.</div>
         <div><span class="project-tag">Personal</span></div>
         <div class="project-link">View details →</div>
       </div>
 
       <div class="project-card reveal"
-           data-title="Startup Social Media Platform"
+           data-title="Flicky"
            data-tag="Contributor"
            data-desc="An open-source social media platform designed for startups and entrepreneurs to connect, share updates, and find collaborators. Contributed features and bug fixes as part of a distributed team."
            data-tech="Open Source"
            data-link="https://github.com/erikonis/startup_social_media_platform"
            data-link-text="github.com/erikonis/startup_social_media_platform">
-        <div class="project-title">Startup Social Media Platform</div>
+        <div class="project-title">Flicky</div>
         <div class="project-desc">Social media platform for startups. Open source, contributed as part of a team.</div>
         <div><span class="project-tag">Contributor</span></div>
         <div class="project-link">View details →</div>
@@ -778,12 +790,13 @@
     const saved = localStorage.getItem('theme');
     const current = saved || preferred;
     document.documentElement.setAttribute('data-theme', current);
-    toggle.textContent = current === 'dark' ? '☀️' : '🌙';
+    const knob = toggle.querySelector('.knob');
+    knob.textContent = current === 'dark' ? '☽' : '☀';
     toggle.addEventListener('click', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
-      toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+      knob.textContent = next === 'dark' ? '☽' : '☀';
     });
 
     // Scroll reveal with stagger
