@@ -400,6 +400,8 @@
       0%, 100% { opacity: 1; }
       50%       { opacity: .15; }
     }
+    [data-theme="light"] .starfield circle { fill: rgba(215,148,18,.75); }
+    [data-theme="light"] .starfield line   { stroke: rgba(210,140,15,.50); }
 
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
@@ -547,6 +549,7 @@
         <ellipse cx="340" cy="105" rx="250" ry="80" fill="rgba(60,90,210,.055)" filter="url(#nblur)"/>
         <ellipse cx="890" cy="62" rx="200" ry="65" fill="rgba(110,60,180,.048)" filter="url(#nblur)"/>
 
+        <g class="starfield">
         <!-- Stars: bright (twinkling) -->
         <circle class="star-twinkle"    cx="70"   cy="22"  r="2.1" fill="rgba(235,245,255,.92)" filter="url(#sglow)"/>
         <circle class="star-twinkle d3" cx="345"  cy="30"  r="1.9" fill="rgba(230,243,255,.88)"/>
@@ -613,6 +616,7 @@
         <!-- Shooting star -->
         <line x1="628" y1="12" x2="672" y2="30" stroke="rgba(220,238,255,.52)" stroke-width="1.2" stroke-linecap="round"/>
         <circle cx="625" cy="11" r="1.5" fill="rgba(240,248,255,.70)"/>
+        </g>
 
         <!-- Planet (bottom-right, partially visible) -->
         <circle cx="1148" cy="468" r="322" fill="var(--mtn-1)"/>
@@ -1056,6 +1060,65 @@
     modalClose.addEventListener('click', closeModal);
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Cursor star particles
+    (function () {
+      const cv = document.createElement('canvas');
+      cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;';
+      document.body.appendChild(cv);
+      const cx = cv.getContext('2d');
+
+      function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+      resize();
+      window.addEventListener('resize', resize);
+
+      const pts = [];
+      let lastT = 0;
+
+      document.addEventListener('mousemove', e => {
+        const now = performance.now();
+        if (now - lastT < 38) return;
+        lastT = now;
+        const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const n = 1 + (Math.random() < .4 ? 1 : 0);
+        for (let i = 0; i < n; i++) {
+          const a = Math.random() * Math.PI * 2;
+          const r = 4 + Math.random() * 18;
+          pts.push({
+            x:  e.clientX + Math.cos(a) * r,
+            y:  e.clientY + Math.sin(a) * r,
+            vx: (Math.random() - .5) * .55,
+            vy: -.35 - Math.random() * .55,
+            sz: .9 + Math.random() * 2.1,
+            op: .9 + Math.random() * .1,
+            dc: .013 + Math.random() * .013,
+            h:  dark ? 195 + Math.random() * 45 : 28 + Math.random() * 28,
+            s:  dark ? 72 : 88,
+            l:  dark ? 76 + Math.random() * 18 : 52 + Math.random() * 12,
+          });
+        }
+      });
+
+      function loop() {
+        cx.clearRect(0, 0, cv.width, cv.height);
+        for (let i = pts.length - 1; i >= 0; i--) {
+          const p = pts[i];
+          p.x += p.vx; p.y += p.vy; p.op -= p.dc;
+          if (p.op <= 0) { pts.splice(i, 1); continue; }
+          const col = `hsla(${p.h},${p.s}%,${p.l}%,${p.op})`;
+          cx.save();
+          cx.shadowBlur = 6 + p.sz * 3;
+          cx.shadowColor = col;
+          cx.fillStyle = col;
+          cx.beginPath();
+          cx.arc(p.x, p.y, p.sz, 0, Math.PI * 2);
+          cx.fill();
+          cx.restore();
+        }
+        requestAnimationFrame(loop);
+      }
+      loop();
+    })();
   </script>
 
 </body>
