@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Enzo Curci - CS Student & Developer</title>
 
-  <!-- OG meta tags -->
   <meta property="og:title" content="Enzo Curci - CS Student & Developer" />
   <meta property="og:description" content="CS student at the University of Luxembourg, on exchange at HKUST. Freelance web developer based in Luxembourg." />
   <meta property="og:type" content="website" />
@@ -18,58 +17,62 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d0d0d;
-      --surface: #141414;
-      --border: #222;
-      --accent: #6ee7b7;
-      --accent2: #818cf8;
-      --text: #e5e5e5;
-      --muted: #888;
-      --nav-bg: rgba(13,13,13,.85);
-      --mountain-back: rgba(255,255,255,.03);
-      --mountain-front: rgba(255,255,255,.06);
+      --bg: #090e0c;
+      --surface: #101a14;
+      --border: #1c2e22;
+      --accent: #4ade80;
+      --accent2: #38bdf8;
+      --text: #dfeee6;
+      --muted: #6b8f78;
+      --nav-bg: rgba(9,14,12,.88);
+      --mtn-1: rgba(15,45,70,.7);
+      --mtn-2: rgba(12,48,30,.8);
+      --mtn-3: rgba(8,28,16,.95);
       --font: 'Inter', system-ui, sans-serif;
     }
 
     @media (prefers-color-scheme: light) {
       :root {
-        --bg: #f9f9f7;
-        --surface: #f0f0ee;
-        --border: #ddd;
-        --accent: #059669;
-        --accent2: #4f46e5;
-        --text: #111;
-        --muted: #666;
-        --nav-bg: rgba(249,249,247,.85);
-        --mountain-back: rgba(0,0,0,.04);
-        --mountain-front: rgba(0,0,0,.07);
+        --bg: #f0f7f3;
+        --surface: #e2f0e9;
+        --border: #bdd8c8;
+        --accent: #16a34a;
+        --accent2: #0369a1;
+        --text: #0d1f15;
+        --muted: #4d7a60;
+        --nav-bg: rgba(240,247,243,.88);
+        --mtn-1: rgba(3,105,161,.18);
+        --mtn-2: rgba(20,120,60,.18);
+        --mtn-3: rgba(10,80,35,.22);
       }
     }
 
     [data-theme="dark"] {
-      --bg: #0d0d0d;
-      --surface: #141414;
-      --border: #222;
-      --accent: #6ee7b7;
-      --accent2: #818cf8;
-      --text: #e5e5e5;
-      --muted: #888;
-      --nav-bg: rgba(13,13,13,.85);
-      --mountain-back: rgba(255,255,255,.03);
-      --mountain-front: rgba(255,255,255,.06);
+      --bg: #090e0c;
+      --surface: #101a14;
+      --border: #1c2e22;
+      --accent: #4ade80;
+      --accent2: #38bdf8;
+      --text: #dfeee6;
+      --muted: #6b8f78;
+      --nav-bg: rgba(9,14,12,.88);
+      --mtn-1: rgba(15,45,70,.7);
+      --mtn-2: rgba(12,48,30,.8);
+      --mtn-3: rgba(8,28,16,.95);
     }
 
     [data-theme="light"] {
-      --bg: #f9f9f7;
-      --surface: #f0f0ee;
-      --border: #ddd;
-      --accent: #059669;
-      --accent2: #4f46e5;
-      --text: #111;
-      --muted: #666;
-      --nav-bg: rgba(249,249,247,.85);
-      --mountain-back: rgba(0,0,0,.04);
-      --mountain-front: rgba(0,0,0,.07);
+      --bg: #f0f7f3;
+      --surface: #e2f0e9;
+      --border: #bdd8c8;
+      --accent: #16a34a;
+      --accent2: #0369a1;
+      --text: #0d1f15;
+      --muted: #4d7a60;
+      --nav-bg: rgba(240,247,243,.88);
+      --mtn-1: rgba(3,105,161,.18);
+      --mtn-2: rgba(20,120,60,.18);
+      --mtn-3: rgba(10,80,35,.22);
     }
 
     html { scroll-behavior: smooth; }
@@ -80,7 +83,7 @@
       font-family: var(--font);
       font-size: 16px;
       line-height: 1.7;
-      transition: background .2s, color .2s;
+      transition: background .25s, color .25s;
     }
 
     a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
@@ -96,12 +99,12 @@
       align-items: center;
       padding: 1.2rem 2.5rem;
       background: var(--nav-bg);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); letter-spacing: -.02em; }
     .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-links a { color: var(--muted); font-size: .9rem; }
+    .nav-links a { color: var(--muted); font-size: .9rem; transition: color .2s; }
     .nav-links a:hover { color: var(--text); opacity: 1; }
     .theme-toggle {
       background: none;
@@ -130,10 +133,12 @@
     .hero-tag {
       display: inline-block;
       font-size: .8rem;
-      letter-spacing: .12em;
+      letter-spacing: .14em;
       text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp .7s ease .1s forwards;
     }
     h1 {
       font-size: clamp(2.8rem, 7vw, 5rem);
@@ -141,6 +146,8 @@
       line-height: 1.05;
       letter-spacing: -.04em;
       margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp .7s ease .25s forwards;
     }
     h1 span { color: var(--accent); }
     .hero-sub {
@@ -148,8 +155,16 @@
       color: var(--muted);
       max-width: 500px;
       margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp .7s ease .4s forwards;
     }
-    .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .7s ease .55s forwards;
+    }
     .btn {
       display: inline-flex;
       align-items: center;
@@ -160,25 +175,23 @@
       font-weight: 500;
       transition: all .2s;
     }
-    .btn-primary { background: var(--accent); color: #0d0d0d; }
+    .btn-primary { background: var(--accent); color: #060e08; }
     .btn-primary:hover { opacity: .85; }
     .btn-ghost { border: 1px solid var(--border); color: var(--text); }
     .btn-ghost:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
 
-    /* MOUNTAIN */
+    /* MOUNTAINS */
     .hero-landscape {
       width: 100vw;
       position: relative;
       left: 50%;
-      right: 50%;
       margin-left: -50vw;
-      margin-right: -50vw;
       margin-top: 4rem;
       line-height: 0;
+      opacity: 0;
+      animation: fadeIn 1.2s ease .7s forwards;
     }
     .hero-landscape svg { width: 100%; display: block; }
-    .mountain-back { fill: var(--mountain-back); }
-    .mountain-front { fill: var(--mountain-front); }
 
     /* SECTIONS */
     section { padding: 6rem 2.5rem; max-width: 860px; margin: 0 auto; }
@@ -197,6 +210,28 @@
       margin-bottom: 2.5rem;
     }
 
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .65s ease, transform .65s ease;
+      transition-delay: var(--delay, 0s);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-24px);
+      transition: opacity .65s ease, transform .65s ease;
+      transition-delay: var(--delay, 0s);
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: none;
+    }
+
     /* ABOUT */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
     .about-text p { color: var(--muted); margin-bottom: 1rem; }
@@ -213,7 +248,7 @@
     }
     .lang-level.native { border-color: var(--accent); color: var(--accent); }
 
-    /* EXPERIENCE */
+    /* TIMELINE */
     .timeline { display: flex; flex-direction: column; }
     .timeline-item {
       display: grid;
@@ -235,12 +270,12 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
-      transition: border-color .2s, transform .2s;
       display: flex;
       flex-direction: column;
       gap: .5rem;
+      transition: border-color .2s, transform .2s;
     }
-    .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    a.project-card:hover { border-color: var(--accent); transform: translateY(-3px); opacity: 1; }
     .project-title { font-weight: 600; font-size: .95rem; color: var(--text); }
     .project-desc { font-size: .85rem; color: var(--muted); flex: 1; }
     .project-tag {
@@ -254,8 +289,14 @@
     .project-link { font-size: .8rem; color: var(--accent); margin-top: .25rem; }
 
     /* SKILLS */
-    .skills-group { margin-bottom: 1.5rem; }
-    .skills-group-label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-bottom: .6rem; }
+    .skills-group { margin-bottom: 1.75rem; }
+    .skills-group-label {
+      font-size: .75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: .7rem;
+    }
     .skills-grid { display: flex; flex-wrap: wrap; gap: .6rem; }
     .skill-pill {
       padding: .5rem .9rem;
@@ -264,9 +305,9 @@
       border-radius: 8px;
       font-size: .85rem;
       color: var(--text);
-      transition: border-color .2s;
+      transition: border-color .2s, transform .2s;
     }
-    .skill-pill:hover { border-color: var(--accent); }
+    .skill-pill:hover { border-color: var(--accent); transform: translateY(-2px); }
     .skill-pill.current { border-color: var(--accent2); color: var(--accent2); }
 
     /* CONTACT */
@@ -287,7 +328,6 @@
     .contact-label { font-size: .75rem; color: var(--muted); }
     .contact-name { font-size: .9rem; font-weight: 500; }
 
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 2.5rem;
@@ -297,6 +337,14 @@
     }
 
     .divider { height: 1px; background: var(--border); max-width: 860px; margin: 0 auto; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(20px); }
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
 
     @media (max-width: 640px) {
       nav { padding: 1rem 1.25rem; }
@@ -336,9 +384,13 @@
     </div>
 
     <div class="hero-landscape">
-      <svg viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <polygon class="mountain-back" points="0,200 80,130 180,155 300,90 420,140 540,70 660,120 780,55 900,105 1020,65 1140,100 1260,75 1440,110 1440,200"/>
-        <polygon class="mountain-front" points="0,200 100,160 220,175 340,125 460,165 580,105 700,150 820,95 940,135 1060,110 1180,140 1320,115 1440,145 1440,200"/>
+      <svg viewBox="0 0 1440 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Far range - blue, atmospheric -->
+        <polygon style="fill:var(--mtn-1)" points="0,260 60,160 140,190 240,120 360,155 460,90 560,130 660,75 760,115 860,65 960,100 1060,55 1160,90 1260,60 1360,85 1440,70 1440,260"/>
+        <!-- Mid range - blue-green -->
+        <polygon style="fill:var(--mtn-2)" points="0,260 80,195 180,210 280,160 380,185 480,130 580,165 680,110 780,148 880,100 980,140 1080,105 1180,135 1280,112 1380,130 1440,120 1440,260"/>
+        <!-- Near range - dark green -->
+        <polygon style="fill:var(--mtn-3)" points="0,260 100,220 200,235 310,195 420,218 520,178 620,205 720,168 820,198 920,172 1020,200 1120,178 1220,205 1340,185 1440,200 1440,260"/>
       </svg>
     </div>
   </section>
@@ -347,28 +399,28 @@
 
   <!-- ABOUT -->
   <section id="about">
-    <p class="section-label">About</p>
-    <h2>Who I am</h2>
+    <p class="section-label reveal">About</p>
+    <h2 class="reveal">Who I am</h2>
     <div class="about-grid">
       <div class="about-text">
-        <p>
+        <p class="reveal">
           I'm a 21-year-old from Kleinbettingen, Luxembourg. I'm studying Computer Science at the University of Luxembourg, currently on exchange at HKUST in Hong Kong.
         </p>
-        <p>
+        <p class="reveal">
           In 2023 I co-built a web app for a restaurant - managing employees, stock and consumption - as a freelance project.
         </p>
-        <p>
+        <p class="reveal">
           Outside of code I hike, cycle, and travel.
         </p>
       </div>
       <div>
-        <p style="font-size:.85rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .1em;">Languages</p>
+        <p class="reveal" style="font-size:.85rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .1em;">Languages</p>
         <div class="lang-list">
-          <div class="lang-item"><span class="lang-name">French</span><span class="lang-level native">Native</span></div>
-          <div class="lang-item"><span class="lang-name">Luxembourgish</span><span class="lang-level native">Fluent</span></div>
-          <div class="lang-item"><span class="lang-name">German</span><span class="lang-level native">Fluent</span></div>
-          <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Advanced</span></div>
-          <div class="lang-item"><span class="lang-name">Italian</span><span class="lang-level">Beginner</span></div>
+          <div class="lang-item reveal"><span class="lang-name">French</span><span class="lang-level native">Native</span></div>
+          <div class="lang-item reveal"><span class="lang-name">Luxembourgish</span><span class="lang-level native">Fluent</span></div>
+          <div class="lang-item reveal"><span class="lang-name">German</span><span class="lang-level native">Fluent</span></div>
+          <div class="lang-item reveal"><span class="lang-name">English</span><span class="lang-level">Advanced</span></div>
+          <div class="lang-item reveal"><span class="lang-name">Italian</span><span class="lang-level">Beginner</span></div>
         </div>
       </div>
     </div>
@@ -378,11 +430,11 @@
 
   <!-- EXPERIENCE -->
   <section id="experience">
-    <p class="section-label">Experience & Education</p>
-    <h2>What I've done</h2>
+    <p class="section-label reveal">Experience & Education</p>
+    <h2 class="reveal">What I've done</h2>
     <div class="timeline">
 
-      <div class="timeline-item">
+      <div class="timeline-item reveal-left">
         <span class="timeline-date">2024 - Present</span>
         <div>
           <div class="timeline-title">Bachelor in Computer Science</div>
@@ -391,7 +443,7 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item reveal-left">
         <span class="timeline-date">Feb - May 2026</span>
         <div>
           <div class="timeline-title">Exchange Semester</div>
@@ -400,7 +452,7 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item reveal-left">
         <span class="timeline-date">2023</span>
         <div>
           <div class="timeline-title">Freelance Web Developer</div>
@@ -409,7 +461,7 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item reveal-left">
         <span class="timeline-date">Summer 2023</span>
         <div>
           <div class="timeline-title">Student Job</div>
@@ -418,7 +470,7 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item reveal-left">
         <span class="timeline-date">Summer 2022</span>
         <div>
           <div class="timeline-title">Technical Support</div>
@@ -427,7 +479,7 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item reveal-left">
         <span class="timeline-date">Summer 2021</span>
         <div>
           <div class="timeline-title">Student Job</div>
@@ -436,7 +488,7 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="timeline-item reveal-left">
         <span class="timeline-date">2017 - 2024</span>
         <div>
           <div class="timeline-title">Secondary School - Section Classique B</div>
@@ -452,36 +504,29 @@
 
   <!-- PROJECTS -->
   <section id="projects">
-    <p class="section-label">Projects</p>
-    <h2>What I've built</h2>
+    <p class="section-label reveal">Projects</p>
+    <h2 class="reveal">What I've built</h2>
     <div class="projects-grid">
 
-      <a href="https://github.com/C3CL3N3/MusicOverlay" target="_blank" class="project-card">
+      <a href="https://github.com/C3CL3N3/MusicOverlay" target="_blank" class="project-card reveal">
         <div class="project-title">MusicOverlay</div>
         <div class="project-desc">A desktop overlay for displaying currently playing music.</div>
-        <div>
-          <span class="project-tag">Personal</span>
-        </div>
+        <div><span class="project-tag">Personal</span></div>
         <div class="project-link">github.com/C3CL3N3/MusicOverlay →</div>
       </a>
 
-      <a href="https://github.com/erikonis/startup_social_media_platform" target="_blank" class="project-card">
+      <a href="https://github.com/erikonis/startup_social_media_platform" target="_blank" class="project-card reveal">
         <div class="project-title">Startup Social Media Platform</div>
         <div class="project-desc">Social media platform for startups. Open source, contributed as part of a team.</div>
-        <div>
-          <span class="project-tag">Contributor</span>
-        </div>
+        <div><span class="project-tag">Contributor</span></div>
         <div class="project-link">github.com/erikonis/startup_social_media_platform →</div>
       </a>
 
-      <a href="https://github.com/C3CL3N3" target="_blank" class="project-card">
+      <div class="project-card reveal">
         <div class="project-title">Restaurant Management App</div>
         <div class="project-desc">Web app for employee, stock, and consumption management. Built as a freelance project in 2023.</div>
-        <div>
-          <span class="project-tag">Freelance</span>
-        </div>
-        <div class="project-link">See GitHub →</div>
-      </a>
+        <div><span class="project-tag">Freelance</span></div>
+      </div>
 
     </div>
   </section>
@@ -490,10 +535,10 @@
 
   <!-- SKILLS -->
   <section id="skills">
-    <p class="section-label">Skills</p>
-    <h2>What I work with</h2>
+    <p class="section-label reveal">Skills</p>
+    <h2 class="reveal">What I work with</h2>
 
-    <div class="skills-group">
+    <div class="skills-group reveal">
       <div class="skills-group-label">Languages</div>
       <div class="skills-grid">
         <div class="skill-pill">Python</div>
@@ -505,7 +550,7 @@
       </div>
     </div>
 
-    <div class="skills-group">
+    <div class="skills-group reveal">
       <div class="skills-group-label">Tools</div>
       <div class="skills-grid">
         <div class="skill-pill">Git</div>
@@ -513,7 +558,7 @@
       </div>
     </div>
 
-    <div class="skills-group">
+    <div class="skills-group reveal">
       <div class="skills-group-label">Currently studying</div>
       <div class="skills-grid">
         <div class="skill-pill current">Mobile Dev</div>
@@ -529,11 +574,11 @@
 
   <!-- CONTACT -->
   <section id="contact">
-    <p class="section-label">Contact</p>
-    <h2>Let's connect</h2>
+    <p class="section-label reveal">Contact</p>
+    <h2 class="reveal">Let's connect</h2>
     <div class="contact-grid">
 
-      <a href="https://github.com/C3CL3N3" target="_blank" class="contact-card">
+      <a href="https://github.com/C3CL3N3" target="_blank" class="contact-card reveal">
         <span class="contact-icon">🐙</span>
         <div>
           <div class="contact-label">GitHub</div>
@@ -541,7 +586,7 @@
         </div>
       </a>
 
-      <a href="https://www.linkedin.com/in/enzo-curci-bb09313ab" target="_blank" class="contact-card">
+      <a href="https://www.linkedin.com/in/enzo-curci-bb09313ab" target="_blank" class="contact-card reveal">
         <span class="contact-icon">💼</span>
         <div>
           <div class="contact-label">LinkedIn</div>
@@ -549,7 +594,7 @@
         </div>
       </a>
 
-      <a href="https://www.instagram.com/enzo0.5" target="_blank" class="contact-card">
+      <a href="https://www.instagram.com/enzo0.5" target="_blank" class="contact-card reveal">
         <span class="contact-icon">📸</span>
         <div>
           <div class="contact-label">Instagram</div>
@@ -557,7 +602,7 @@
         </div>
       </a>
 
-      <a href="mailto:enzocurci2005@gmail.com" class="contact-card">
+      <a href="mailto:enzocurci2005@gmail.com" class="contact-card reveal">
         <span class="contact-icon">✉️</span>
         <div>
           <div class="contact-label">Email</div>
@@ -573,19 +618,40 @@
   </footer>
 
   <script>
+    // Theme
     const toggle = document.getElementById('themeToggle');
     const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     const saved = localStorage.getItem('theme');
     const current = saved || preferred;
-
     document.documentElement.setAttribute('data-theme', current);
     toggle.textContent = current === 'dark' ? '☀️' : '🌙';
-
     toggle.addEventListener('click', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
       toggle.textContent = next === 'dark' ? '☀️' : '🌙';
+    });
+
+    // Scroll reveal with stagger
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    // Stagger siblings of the same parent
+    document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Apply stagger delay to grouped elements
+    ['.lang-item', '.timeline-item', '.project-card', '.contact-card'].forEach(sel => {
+      document.querySelectorAll(sel).forEach((el, i) => {
+        el.style.setProperty('--delay', `${i * 0.08}s`);
+      });
     });
   </script>
 
