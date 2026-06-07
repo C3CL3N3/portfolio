@@ -1165,7 +1165,9 @@ function renderStats(pl) {
 // ══ Spotify OAuth (PKCE) ══════════════════════════════════════════════════════
 
 const SPOTIFY_CLIENT_ID = "b44e19d20bcc49b398bb67beaa18d05e";
-const SPOTIFY_REDIRECT  = "https://enzocurci.com/pourmonamour";
+const SPOTIFY_REDIRECT  = location.hostname === "127.0.0.1" || location.hostname === "localhost"
+  ? "http://127.0.0.1:8080"
+  : "https://enzocurci.com/pourmonamour";
 const SPOTIFY_SCOPES    = "playlist-modify-public playlist-modify-private";
 
 function base64URLEncode(buf) {
