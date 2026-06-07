@@ -788,7 +788,10 @@ Parce que tu mérites que tout soit parfait. Comme toi 😘</div>
   <!-- Sidebar -->
   <nav id="sidebar">
     <div id="sidebar-header">
-      <h1>Tes Playlists 🎵</h1>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <h1>Tes Playlists 🎵</h1>
+        <button id="spotify-logout-btn" title="Se déconnecter de Spotify" style="display:none;background:rgba(255,143,171,.15);border:1px solid rgba(255,143,171,.3);border-radius:8px;padding:4px 10px;font-size:12px;color:var(--muted);cursor:pointer;white-space:nowrap;flex-shrink:0;">↩ Déco</button>
+      </div>
       <p id="sidebar-stats">Chargement…</p>
     </div>
     <div id="filter-tabs">
@@ -1243,12 +1246,29 @@ async function handleOAuthCallback() {
     const url = await copyPlaylistToSpotify(tok.access_token, name, ids);
     closeModal();
     launchConfetti();
+    document.getElementById("spotify-logout-btn").style.display = "";
     showToast(`🎉 Playlist créée ! <a href="${url}" target="_blank">Ouvrir dans Spotify</a>`, 8000);
   } catch(e) { closeModal(); showToast(`Erreur : ${e.message}`); }
 }
 function clearOAuthState() {
   ["pkce_verifier","pkce_state","pending_name","pending_tracks"].forEach(k=>sessionStorage.removeItem(k));
 }
+
+// ══ Spotify logout ══════════════════════════════════════════════════════════
+function spotifyLogout() {
+  sessionStorage.clear();
+  localStorage.removeItem("spotify_token");
+  // Open Spotify logout in hidden iframe to clear their session cookie
+  const iframe = document.createElement("iframe");
+  iframe.style.cssText = "display:none;width:0;height:0;border:0;";
+  iframe.src = "https://accounts.spotify.com/logout";
+  document.body.appendChild(iframe);
+  setTimeout(() => { document.body.removeChild(iframe); }, 2000);
+  document.getElementById("spotify-logout-btn").style.display = "none";
+  showToast("Déconnecté de Spotify ✓");
+}
+document.getElementById("spotify-logout-btn").addEventListener("click", spotifyLogout);
+
 
 // ══ Modal ══════════════════════════════════════════════════════════════════════
 
