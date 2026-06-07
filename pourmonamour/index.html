@@ -1179,6 +1179,7 @@ async function pkceChallenge() {
   const challenge = base64URLEncode(new Uint8Array(digest));
   return { verifier, challenge };
 }
+let forceSpotifyDialog = false;
 async function spotifyLogin(name, ids) {
   const {verifier, challenge} = await pkceChallenge();
   const state = crypto.randomUUID();
@@ -1186,10 +1187,12 @@ async function spotifyLogin(name, ids) {
   sessionStorage.setItem("pkce_state",    state);
   sessionStorage.setItem("pending_name",  name);
   sessionStorage.setItem("pending_tracks", JSON.stringify(ids));
-  window.location.href = `https://accounts.spotify.com/authorize?` + new URLSearchParams({
+  const params = {
     response_type:"code", client_id:SPOTIFY_CLIENT_ID, scope:SPOTIFY_SCOPES,
     redirect_uri:SPOTIFY_REDIRECT, state, code_challenge_method:"S256", code_challenge:challenge,
-  });
+  };
+  if (forceSpotifyDialog) { params.show_dialog = "true"; forceSpotifyDialog = false; }
+  window.location.href = `https://accounts.spotify.com/authorize?` + new URLSearchParams(params);
 }
 async function exchangeCode(code) {
   const res = await fetch("https://accounts.spotify.com/api/token", {
@@ -1201,14 +1204,22 @@ async function exchangeCode(code) {
       code_verifier: sessionStorage.getItem("pkce_verifier"),
     }),
   });
-  if (!res.ok) throw new Error(`Token exchange failed: ${res.status}`);
+  if (!res.ok) {
+    const body = await res.text();
+    console.error("[exchangeCode] failed:", res.status, body);
+    throw new Error(`Token exchange failed: ${res.status} — ${body}`);
+  }
   return res.json();
 }
 async function spotifyFetch(token, path, opts={}) {
   const res = await fetch(`https://api.spotify.com/v1${path}`, {
     ...opts, headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json",...opts.headers},
   });
-  if (!res.ok) throw new Error(`Spotify ${path}: ${res.status}`);
+  if (!res.ok) {
+    const body = await res.text();
+    console.error(`[spotifyFetch] ${path} failed:`, res.status, body);
+    throw new Error(`Spotify ${path}: ${res.status} — ${body}`);
+  }
   return res.status===204 ? null : res.json();
 }
 async function copyPlaylistToSpotify(token, name, ids) {
@@ -1235,22 +1246,29 @@ function setProgress(pct, text) {
 async function handleOAuthCallback() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get("code"), state = params.get("state"), error = params.get("error");
-  if (error) { showToast("Connexion Spotify annulée."); clearOAuthState(); return; }
+  console.log("[OAuth] params:", {code: code?.slice(0,8)+"…", state, error});
+  console.log("[OAuth] stored state:", sessionStorage.getItem("pkce_state"));
+  console.log("[OAuth] verifier present:", !!sessionStorage.getItem("pkce_verifier"));
+  if (error) { console.error("[OAuth] error:", error); showToast("Connexion Spotify annulée: " + error); clearOAuthState(); return; }
   if (!code) return;
-  if (state !== sessionStorage.getItem("pkce_state")) { showToast("Erreur auth — réessaie."); return; }
+  if (state !== sessionStorage.getItem("pkce_state")) {
+    console.error("[OAuth] state mismatch — got:", state, "expected:", sessionStorage.getItem("pkce_state"));
+    showToast("Erreur auth — réessaie."); return;
+  }
   history.replaceState({}, "", window.location.pathname);
   const name   = sessionStorage.getItem("pending_name") || "Ma Playlist";
   const ids    = JSON.parse(sessionStorage.getItem("pending_tracks")||"[]");
   openModal(name, ids, true);
   try {
     const tok = await exchangeCode(code);
+    console.log("[OAuth] token exchange OK, scopes:", tok.scope);
     clearOAuthState();
     const url = await copyPlaylistToSpotify(tok.access_token, name, ids);
     closeModal();
     launchConfetti();
     document.getElementById("spotify-logout-btn").style.display = "";
     showToast(`🎉 Playlist créée ! <a href="${url}" target="_blank">Ouvrir dans Spotify</a>`, 8000);
-  } catch(e) { closeModal(); showToast(`Erreur : ${e.message}`); }
+  } catch(e) { console.error("[OAuth] error:", e); closeModal(); showToast(`Erreur : ${e.message}`); }
 }
 function clearOAuthState() {
   ["pkce_verifier","pkce_state","pending_name","pending_tracks"].forEach(k=>sessionStorage.removeItem(k));
@@ -1260,6 +1278,7 @@ function clearOAuthState() {
 function spotifyLogout() {
   sessionStorage.clear();
   localStorage.removeItem("spotify_token");
+  forceSpotifyDialog = true;
   // Open Spotify logout in hidden iframe to clear their session cookie
   const iframe = document.createElement("iframe");
   iframe.style.cssText = "display:none;width:0;height:0;border:0;";
