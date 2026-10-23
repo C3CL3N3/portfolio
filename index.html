@@ -15,487 +15,8 @@
   <meta name="twitter:title" content="Enzo Curci - Computer Science Student" />
   <meta name="twitter:description" content="Third-year Computer Science student at the University of Luxembourg, available for student jobs. Interested in AI, machine learning, and cybersecurity." />
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #080c18;
-      --surface: #0d1425;
-      --border: #172040;
-      --accent: #7ec8e3;
-      --accent2: #a78bfa;
-      --text: #dae8f5;
-      --muted: #5a7a95;
-      --nav-bg: rgba(8,12,24,.88);
-      --mtn-1: rgba(55,95,195,.22);
-      --mtn-2: rgba(22,52,128,.72);
-      --mtn-3: rgba(75,125,200,.42);
-      --font: 'Inter', system-ui, sans-serif;
-    }
-
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #e8f4fd;
-        --surface: #d2e9f9;
-        --border: #a8cfe8;
-        --accent: #1d78bf;
-        --accent2: #7c55d9;
-        --text: #0b1c2e;
-        --muted: #3d6885;
-        --nav-bg: rgba(232,244,253,.88);
-        --mtn-1: rgba(100,165,225,.28);
-        --mtn-2: rgba(55,125,200,.45);
-        --mtn-3: rgba(80,150,220,.38);
-      }
-    }
-
-    [data-theme="dark"] {
-      --bg: #080c18;
-      --surface: #0d1425;
-      --border: #172040;
-      --accent: #7ec8e3;
-      --accent2: #a78bfa;
-      --text: #dae8f5;
-      --muted: #5a7a95;
-      --nav-bg: rgba(8,12,24,.88);
-      --mtn-1: rgba(55,95,195,.22);
-      --mtn-2: rgba(22,52,128,.72);
-      --mtn-3: rgba(75,125,200,.42);
-    }
-
-    [data-theme="light"] {
-      --bg: #e8f4fd;
-      --surface: #d2e9f9;
-      --border: #a8cfe8;
-      --accent: #1d78bf;
-      --accent2: #7c55d9;
-      --text: #0b1c2e;
-      --muted: #3d6885;
-      --nav-bg: rgba(232,244,253,.88);
-      --mtn-1: rgba(100,165,225,.28);
-      --mtn-2: rgba(55,125,200,.45);
-      --mtn-3: rgba(80,150,220,.38);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 16px;
-      line-height: 1.7;
-      transition: background .25s, color .25s;
-    }
-
-    a { color: var(--accent); text-decoration: none; transition: opacity .2s; }
-    a:hover { opacity: .75; }
-
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 2.5rem;
-      background: var(--nav-bg);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--text); letter-spacing: -.02em; }
-    .nav-links { display: flex; gap: 2rem; align-items: center; }
-    .nav-links a { color: var(--muted); font-size: .9rem; transition: color .2s; }
-    .nav-links a:hover { color: var(--text); opacity: 1; }
-    .theme-toggle {
-      position: relative;
-      width: 42px; height: 24px;
-      background: #333;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      padding: 0;
-      flex-shrink: 0;
-      transition: background .25s;
-    }
-    .theme-toggle .knob {
-      position: absolute;
-      top: 3px; left: 3px;
-      width: 18px; height: 18px;
-      background: #666;
-      border-radius: 50%;
-      transition: transform .25s, background .25s;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 13px; line-height: 1;
-      color: #eee;
-    }
-    [data-theme="light"] .theme-toggle { background: #bbb; }
-    [data-theme="light"] .theme-toggle .knob { transform: translateX(18px); background: #eee; color: #333; }
-
-    /* HAMBURGER & MOBILE NAV */
-    .nav-right { display: flex; align-items: center; gap: .75rem; }
-    .hamburger {
-      display: none;
-      background: none; border: none; cursor: pointer;
-      padding: .3rem; flex-direction: column; gap: 5px;
-    }
-    .hamburger span {
-      display: block; width: 18px; height: 1.5px;
-      background: var(--muted); border-radius: 2px; transition: all .2s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .mobile-nav {
-      display: none; position: fixed;
-      top: 53px; left: 0; right: 0; z-index: 99;
-      background: var(--nav-bg); backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      padding: .5rem 1.25rem .75rem;
-      flex-direction: column;
-    }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a {
-      color: var(--muted); font-size: .9rem;
-      padding: .7rem 0; border-bottom: 1px solid var(--border); transition: color .2s;
-    }
-    .mobile-nav a:last-child { border-bottom: none; }
-    .mobile-nav a:hover { color: var(--text); opacity: 1; }
-
-    /* HERO */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 8rem 2.5rem 0;
-      max-width: 860px;
-      margin: 0 auto;
-      position: relative;
-    }
-    .hero-tag {
-      display: inline-block;
-      font-size: .8rem;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp .7s ease .1s forwards;
-    }
-    h1 {
-      font-size: clamp(2.8rem, 7vw, 5rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -.04em;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp .7s ease .25s forwards;
-    }
-    h1 span { color: var(--accent); }
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--muted);
-      max-width: 500px;
-      margin-bottom: 2.5rem;
-      opacity: 0;
-      animation: fadeUp .7s ease .4s forwards;
-    }
-    .hero-links {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp .7s ease .55s forwards;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .7rem 1.4rem;
-      border-radius: 8px;
-      font-size: .9rem;
-      font-weight: 500;
-      transition: all .2s;
-    }
-    .btn-primary { background: var(--accent); color: var(--bg); }
-    .btn-primary:hover { opacity: .85; }
-    .btn-ghost { border: 1px solid var(--border); color: var(--text); }
-    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); opacity: 1; }
-
-    .contact-intro { color: var(--muted); max-width: 560px; margin-bottom: 2rem; }
-
-    /* MOUNTAINS */
-    .hero-landscape {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      margin-left: -50vw;
-      margin-top: 4rem;
-      line-height: 0;
-      opacity: 0;
-      animation: fadeIn 1.2s ease .7s forwards;
-    }
-    .hero-landscape svg { width: 100%; display: block; }
-
-    /* SECTIONS */
-    section { padding: 6rem 2.5rem; max-width: 860px; margin: 0 auto; }
-
-    .section-label {
-      font-size: .75rem;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: .75rem;
-    }
-    h2 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -.03em;
-      margin-bottom: 2.5rem;
-    }
-
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .65s ease, transform .65s ease;
-      transition-delay: var(--delay, 0s);
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: none;
-    }
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-24px);
-      transition: opacity .65s ease, transform .65s ease;
-      transition-delay: var(--delay, 0s);
-    }
-    .reveal-left.visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-    .about-text p { color: var(--muted); margin-bottom: 1rem; }
-    .lang-list { display: flex; flex-direction: column; gap: .6rem; }
-    .lang-item { display: flex; justify-content: space-between; align-items: center; }
-    .lang-name { font-size: .9rem; }
-    .lang-level {
-      font-size: .75rem;
-      padding: .2rem .6rem;
-      border-radius: 999px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-    .lang-level.native { border-color: var(--accent); color: var(--accent); }
-
-    /* TIMELINE */
-    .timeline { display: flex; flex-direction: column; }
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 1.5rem;
-      padding: 1.8rem 0;
-      border-top: 1px solid var(--border);
-    }
-    .timeline-item:last-child { border-bottom: 1px solid var(--border); }
-    .timeline-date { font-size: .8rem; color: var(--muted); padding-top: .25rem; }
-    .timeline-title { font-weight: 600; margin-bottom: .25rem; }
-    .timeline-org { font-size: .85rem; color: var(--accent2); margin-bottom: .5rem; }
-    .timeline-desc { font-size: .9rem; color: var(--muted); }
-
-    /* PROJECTS */
-    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .project-card {
-      padding: 1.4rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: .5rem;
-      transition: border-color .2s, transform .2s;
-    }
-    a.project-card:hover { border-color: var(--accent); transform: translateY(-3px); opacity: 1; }
-    .project-title { font-weight: 600; font-size: .95rem; color: var(--text); }
-    .project-desc { font-size: .85rem; color: var(--muted); flex: 1; }
-    .project-tag {
-      display: inline-block;
-      font-size: .7rem;
-      padding: .15rem .5rem;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-    .project-link { font-size: .8rem; color: var(--accent); margin-top: .25rem; }
-
-    /* SKILLS */
-    .skills-group { margin-bottom: 1.75rem; }
-    .skills-group-label {
-      font-size: .75rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      margin-bottom: .7rem;
-    }
-    .skills-grid { display: flex; flex-wrap: wrap; gap: .6rem; }
-    .skill-pill {
-      padding: .5rem .9rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: .85rem;
-      color: var(--text);
-      transition: border-color .2s, transform .2s;
-    }
-    .skill-pill:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .skill-pill.current { border-color: var(--accent2); color: var(--accent2); }
-
-    /* CONTACT */
-    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
-    .contact-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.2rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: var(--text);
-      transition: border-color .2s, transform .2s;
-    }
-    .contact-card:hover { border-color: var(--accent); transform: translateY(-2px); opacity: 1; }
-    .contact-icon { font-size: 1.4rem; }
-    .contact-label { font-size: .75rem; color: var(--muted); }
-    .contact-name { font-size: .9rem; font-weight: 500; }
-
-    footer {
-      text-align: center;
-      padding: 2.5rem;
-      color: var(--muted);
-      font-size: .85rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .divider { height: 1px; background: var(--border); max-width: 860px; margin: 0 auto; }
-
-    /* SPACE ANIMATIONS */
-    .hero-landscape { overflow: visible; }
-    .hero-landscape svg { overflow: visible; }
-    .rocket {
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: rocketFloat 5s ease-in-out infinite;
-    }
-    @keyframes rocketFloat {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-11px); }
-    }
-    .star-twinkle { animation: starTwinkle 3.2s ease-in-out infinite; }
-    .star-twinkle.d2 { animation-delay: 1.1s; }
-    .star-twinkle.d3 { animation-delay: 2.0s; }
-    .star-twinkle.d4 { animation-delay: 0.6s; }
-    @keyframes starTwinkle {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: .15; }
-    }
-    [data-theme="light"] .starfield circle { fill: rgba(215,148,18,.75); }
-    [data-theme="light"] .starfield line   { stroke: rgba(210,140,15,.50); }
-
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-      from { opacity: 0; transform: translateY(20px); }
-    }
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    /* TIMELINE LOGOS & EDUCATION EXPAND */
-    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
-    .timeline-logo {
-      width: 30px; height: 30px; border-radius: 7px;
-      object-fit: contain; background: var(--surface);
-      border: 1px solid var(--border); padding: 4px; flex-shrink: 0;
-    }
-    .timeline-item.education { cursor: pointer; }
-    .timeline-item.education:hover .timeline-title { color: var(--accent); transition: color .2s; }
-    .timeline-chevron { font-size: .6rem; color: var(--muted); margin-top: .35rem; flex-shrink: 0; transition: transform .3s; line-height: 1; }
-    .timeline-item.education.open .timeline-chevron { transform: rotate(180deg); }
-    .timeline-extra { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
-    .timeline-item.education.open .timeline-extra { max-height: 200px; }
-    .timeline-gpa {
-      margin-top: .75rem; padding-top: .75rem; border-top: 1px solid var(--border);
-      font-size: .85rem; color: var(--muted); display: flex; gap: 2rem; flex-wrap: wrap;
-    }
-    .gpa-label { display: flex; flex-direction: column; gap: .15rem; }
-    .gpa-value { color: var(--accent); font-weight: 600; font-size: .9rem; }
-
-    /* CERTIFICATIONS / AWARDS */
-    .certs-grid { display: grid; gap: 1rem; }
-    .cert-card {
-      display: flex; align-items: flex-start; gap: 1.2rem;
-      padding: 1.4rem; background: var(--surface);
-      border: 1px solid var(--border); border-radius: 10px; transition: border-color .2s;
-    }
-    .cert-card:hover { border-color: var(--accent); }
-    .cert-badge { font-size: 1.8rem; flex-shrink: 0; line-height: 1; padding-top: .1rem; }
-    .cert-title { font-weight: 600; font-size: .95rem; margin-bottom: .2rem; }
-    .cert-issuer { font-size: .8rem; color: var(--accent2); margin-bottom: .4rem; }
-    .cert-desc { font-size: .85rem; color: var(--muted); }
-
-    /* PROJECT MODAL */
-    div.project-card { cursor: pointer; }
-    div.project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
-    .modal-overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,.6); backdrop-filter: blur(5px);
-      display: flex; align-items: center; justify-content: center;
-      padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity .25s;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 2rem 2rem 1.75rem;
-      max-width: 520px; width: 100%; position: relative;
-      transform: translateY(20px); transition: transform .25s;
-    }
-    .modal-overlay.open .modal { transform: none; }
-    .modal-close {
-      position: absolute; top: 1rem; right: 1rem;
-      background: none; border: 1px solid var(--border); color: var(--muted);
-      cursor: pointer; width: 30px; height: 30px; border-radius: 7px; font-size: .8rem;
-      display: flex; align-items: center; justify-content: center; transition: border-color .2s, color .2s;
-    }
-    .modal-close:hover { border-color: var(--accent); color: var(--text); }
-    .modal-tag {
-      display: inline-block; font-size: .7rem; padding: .15rem .55rem;
-      border-radius: 999px; border: 1px solid var(--border); color: var(--muted); margin-bottom: .9rem;
-    }
-    .modal-title { font-size: 1.15rem; font-weight: 700; margin-bottom: .5rem; }
-    .modal-desc { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
-    .modal-pills { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.2rem; }
-    .modal-pill {
-      padding: .28rem .65rem; background: var(--bg);
-      border: 1px solid var(--border); border-radius: 6px; font-size: .78rem; color: var(--muted);
-    }
-    .modal-link { display: inline-flex; align-items: center; gap: .35rem; font-size: .85rem; color: var(--accent); }
-
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      section { padding: 4rem 1.25rem; }
-      #hero { padding: 7rem 1.25rem 0; }
-      .about-grid { grid-template-columns: 1fr; }
-      .timeline-item { grid-template-columns: 1fr; gap: .4rem; }
-      .projects-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 <body>
 
@@ -539,7 +60,7 @@
     </div>
 
     <div class="hero-landscape">
-      <svg viewBox="0 0 1440 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+      <svg viewBox="0 0 1440 260" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="sglow" x="-80%" y="-80%" width="260%" height="260%">
             <feGaussianBlur stdDeviation="2.5" result="b"/>
@@ -676,7 +197,7 @@
         </p>
       </div>
       <div>
-        <p class="reveal" style="font-size:.85rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: .1em;">Languages</p>
+        <p class="reveal languages-heading">Languages</p>
         <div class="lang-list">
           <div class="lang-item reveal"><span class="lang-name">French</span><span class="lang-level native">Native</span></div>
           <div class="lang-item reveal"><span class="lang-name">Luxembourgish</span><span class="lang-level native">Fluent</span></div>
@@ -707,10 +228,10 @@
             <img src="https://www.google.com/s2/favicons?domain=uni.lu&sz=64" class="timeline-logo" alt="UL" loading="lazy">
             <span class="timeline-chevron">▼</span>
           </div>
-          <div class="timeline-desc">Currently in my third year. Studies in algorithms, systems, and programming languages.</div>
+          <div class="timeline-desc">Currently in my third year, studying security, generative AI, machine learning, and human-computer interaction.</div>
           <div class="timeline-extra">
             <div class="timeline-gpa">
-              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">GPA</span><span class="gpa-value">17.6 / 20</span></div>
+              <div class="gpa-label"><span class="gpa-caption">GPA</span><span class="gpa-value">17.6 / 20</span></div>
             </div>
           </div>
         </div>
@@ -728,6 +249,11 @@
             <span class="timeline-chevron">▼</span>
           </div>
           <div class="timeline-desc">Completed an exchange semester in Hong Kong, with courses in mobile development, cybersecurity, IoT, and compiler construction.</div>
+          <div class="timeline-extra">
+            <div class="timeline-gpa">
+              <div class="gpa-label"><span class="gpa-caption">GPA</span><span class="gpa-value">3.520 / 4.3</span></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -790,8 +316,8 @@
           <div class="timeline-desc">Classical secondary education, Section B with Latin. Graduated with mention Excellent.</div>
           <div class="timeline-extra">
             <div class="timeline-gpa">
-              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Final grade</span><span class="gpa-value">53 / 60</span></div>
-              <div class="gpa-label"><span style="font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;">Mention</span><span class="gpa-value">Excellent</span></div>
+              <div class="gpa-label"><span class="gpa-caption">Final grade</span><span class="gpa-value">53 / 60</span></div>
+              <div class="gpa-label"><span class="gpa-caption">Mention</span><span class="gpa-value">Excellent</span></div>
             </div>
           </div>
         </div>
@@ -842,15 +368,15 @@
       </div>
 
       <div class="project-card reveal"
-           data-title="Flicky"
-           data-tag="Contributor"
-           data-desc="An open-source social media platform designed for startups and entrepreneurs to connect, share updates, and find collaborators. Contributed features and bug fixes as part of a distributed team."
-           data-tech="Open Source"
-           data-link="https://github.com/erikonis/startup_social_media_platform"
-           data-link-text="github.com/erikonis/startup_social_media_platform">
-        <div class="project-title">Flicky</div>
-        <div class="project-desc">Social media platform for startups. Open source, contributed as part of a team.</div>
-        <div><span class="project-tag">Contributor</span></div>
+           data-title="F1 Racing Agent Simulation"
+           data-tag="Ongoing · Semester project"
+           data-desc="A Python bachelor’s semester project exploring NEAT neuroevolution for F1-inspired racing agents. Track preprocessing and a static track viewer are implemented. Vehicle physics, the racing environment, and agent training are still in development."
+           data-tech="Python,NEAT,FastF1,NumPy,Shapely"
+           data-link="https://github.com/C3CL3N3/Evolutionary-Optimization-of-F1-Racing-Agents"
+           data-link-text="View the F1 project on GitHub">
+        <div class="project-title">F1 Racing Agent Simulation</div>
+        <div class="project-desc">An ongoing Python project exploring neuroevolution for F1-inspired racing agents.</div>
+        <div><span class="project-tag">Ongoing · Semester project</span></div>
         <div class="project-link">View details →</div>
       </div>
 
@@ -896,12 +422,12 @@
     </div>
 
     <div class="skills-group reveal">
-      <div class="skills-group-label">Coursework at HKUST</div>
+      <div class="skills-group-label">Currently studying</div>
       <div class="skills-grid">
-        <div class="skill-pill current">Mobile Dev</div>
-        <div class="skill-pill current">Cybersecurity</div>
-        <div class="skill-pill current">IoT</div>
-        <div class="skill-pill current">Compiler Construction</div>
+        <div class="skill-pill current">Security</div>
+        <div class="skill-pill current">Generative AI</div>
+        <div class="skill-pill current">Machine Learning</div>
+        <div class="skill-pill current">HCI</div>
       </div>
     </div>
 
@@ -959,7 +485,7 @@
       <div id="modalTitle" class="modal-title"></div>
       <div id="modalDesc" class="modal-desc"></div>
       <div id="modalPills" class="modal-pills"></div>
-      <a id="modalLink" class="modal-link" target="_blank" rel="noopener" style="display:none">View on GitHub →</a>
+      <a id="modalLink" class="modal-link" target="_blank" rel="noopener" hidden>View on GitHub →</a>
     </div>
   </div>
 
@@ -967,169 +493,7 @@
     <p>Enzo Curci · Luxembourg</p>
   </footer>
 
-  <script>
-    // Theme
-    const toggle = document.getElementById('themeToggle');
-    const preferred = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    const saved = localStorage.getItem('theme');
-    const current = saved || preferred;
-    document.documentElement.setAttribute('data-theme', current);
-    const knob = toggle.querySelector('.knob');
-    knob.textContent = current === 'dark' ? '☽︎' : '☀︎';
-    toggle.addEventListener('click', () => {
-      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
-      knob.textContent = next === 'dark' ? '☽︎' : '☀︎';
-    });
 
-    // Hamburger menu
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobileNav');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileNav.classList.toggle('open');
-    });
-    mobileNav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        hamburger.classList.remove('open');
-        mobileNav.classList.remove('open');
-      });
-    });
-
-    // Scroll reveal with stagger
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Apply stagger delay to grouped elements
-    ['.lang-item', '.timeline-item', '.project-card', '.contact-card', '.cert-card'].forEach(sel => {
-      document.querySelectorAll(sel).forEach((el, i) => {
-        el.style.setProperty('--delay', `${i * 0.08}s`);
-      });
-    });
-
-    // Education expand (GPA on click)
-    document.querySelectorAll('.timeline-item.education').forEach(item => {
-      item.addEventListener('click', () => {
-        item.classList.toggle('open');
-      });
-    });
-
-    // Project modal
-    const overlay = document.getElementById('modalOverlay');
-    const modalClose = document.getElementById('modalClose');
-
-    function openModal(card) {
-      document.getElementById('modalTag').textContent = card.dataset.tag || '';
-      document.getElementById('modalTitle').textContent = card.dataset.title || '';
-      document.getElementById('modalDesc').textContent = card.dataset.desc || '';
-
-      const pills = document.getElementById('modalPills');
-      pills.innerHTML = '';
-      if (card.dataset.tech) {
-        card.dataset.tech.split(',').forEach(t => {
-          const span = document.createElement('span');
-          span.className = 'modal-pill';
-          span.textContent = t.trim();
-          pills.appendChild(span);
-        });
-      }
-
-      const link = document.getElementById('modalLink');
-      if (card.dataset.link) {
-        link.href = card.dataset.link;
-        link.textContent = (card.dataset.linkText || card.dataset.link) + ' →';
-        link.style.display = 'inline-flex';
-      } else {
-        link.style.display = 'none';
-      }
-
-      overlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-      overlay.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.querySelectorAll('div.project-card').forEach(card => {
-      card.addEventListener('click', () => openModal(card));
-    });
-
-    modalClose.addEventListener('click', closeModal);
-    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-    // Cursor star particles
-    (function () {
-      const cv = document.createElement('canvas');
-      cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;';
-      document.body.appendChild(cv);
-      const cx = cv.getContext('2d');
-
-      function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
-      resize();
-      window.addEventListener('resize', resize);
-
-      const pts = [];
-      let lastT = 0;
-
-      document.addEventListener('mousemove', e => {
-        const now = performance.now();
-        if (now - lastT < 38) return;
-        lastT = now;
-        const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const n = 1 + (Math.random() < .4 ? 1 : 0);
-        for (let i = 0; i < n; i++) {
-          const a = Math.random() * Math.PI * 2;
-          const r = 4 + Math.random() * 18;
-          pts.push({
-            x:  e.clientX + Math.cos(a) * r,
-            y:  e.clientY + Math.sin(a) * r,
-            vx: (Math.random() - .5) * .55,
-            vy: -.35 - Math.random() * .55,
-            sz: .9 + Math.random() * 2.1,
-            op: .9 + Math.random() * .1,
-            dc: .013 + Math.random() * .013,
-            h:  dark ? 195 + Math.random() * 45 : 28 + Math.random() * 28,
-            s:  dark ? 72 : 88,
-            l:  dark ? 76 + Math.random() * 18 : 52 + Math.random() * 12,
-          });
-        }
-      });
-
-      function loop() {
-        cx.clearRect(0, 0, cv.width, cv.height);
-        for (let i = pts.length - 1; i >= 0; i--) {
-          const p = pts[i];
-          p.x += p.vx; p.y += p.vy; p.op -= p.dc;
-          if (p.op <= 0) { pts.splice(i, 1); continue; }
-          const col = `hsla(${p.h},${p.s}%,${p.l}%,${p.op})`;
-          cx.save();
-          cx.shadowBlur = 6 + p.sz * 3;
-          cx.shadowColor = col;
-          cx.fillStyle = col;
-          cx.beginPath();
-          cx.arc(p.x, p.y, p.sz, 0, Math.PI * 2);
-          cx.fill();
-          cx.restore();
-        }
-        requestAnimationFrame(loop);
-      }
-      loop();
-    })();
-  </script>
 
 </body>
 </html>
