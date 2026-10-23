@@ -32,7 +32,7 @@ ln -s "$release" "$base/site.next"
 mv -Tf "$base/site.next" "$base/site"
 healthy() {
     for attempt in {1..10}; do
-        if curl -fsS --max-time 2 http://127.0.0.1:3000/watch/ -o /dev/null; then return 0; fi
+        if curl -fsS --max-time 2 http://127.0.0.1:3000/watch/ -o /dev/null 2>/dev/null; then return 0; fi
         sleep 1
     done
     return 1
